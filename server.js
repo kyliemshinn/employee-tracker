@@ -1,12 +1,22 @@
 // require variables needed for code to run
-
+const mysql = require("mysql2");
+const inquirer = require('inquirer');
+const cTable = require('console.table');
 // connection for sql to server.js file
-
+const db = mysql.createConnection(
+    {
+      host: 'localhost',
+      user: 'root',
+      password: 'password',
+      database: 'employees_db'
+    },
+    console.log(`Connected to the employees_db database.`)
+  );
 // inquirer prompts for employees- will be multiple different 
     // what would you like to do ?
         // subset of questions to populate schema tables
             // view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role
-            
+
 
     // after select all deps, show formatted table with dep names and id
     
