@@ -17,16 +17,16 @@ const db = mysql.createConnection(
     // subset of questions to populate schema tables
         // view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role
     function initPrompt() {
-        const startQuestion = [{
-          type: "list",
-          name: "choice",
-          message: "what would you like to do?",
-          loop: false,
-          choices: ['view all departments', 'view all roles', 'view all employees', 'add a department', 'add a role', 'add an employee', 'update an employee role']
+        const startQuestions = [{
+            name: "choice",
+            type: "list",
+            message: "what would you like to do?",
+            choices: ['view all departments', 'view all roles', 'view all employees', 'add a department', 'add a role', 'add an employee', 'update an employee role']
         }]
 
-    .then(function(choices) {
-        switch (choices.choice) {
+     inquirer.prompt(startQuestions).then(response => { 
+
+        switch (response.choice) {
             case "view all departments":
               viewDepts();
             break;
@@ -59,8 +59,14 @@ const db = mysql.createConnection(
 }
     // after select all deps, show formatted table with dep names and id
     const viewDepts =() => {
-
-    }
+        db.query(`SELECT * FROM department`, (err, result) => {
+            if (err) {
+              console.log(err);
+            }
+            console.table(res)
+          });
+          initPrompt();
+    };
     // view all roles then I am presented with the job title, role id, the department that role belongs to, and the salary for that role
     const viewRoles =() => {
 
@@ -86,7 +92,6 @@ const db = mysql.createConnection(
 
     }
 
-
-
+initPrompt();
 
             
