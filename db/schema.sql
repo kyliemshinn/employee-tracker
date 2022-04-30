@@ -11,31 +11,23 @@ CREATE TABLE department (
 )
 
 
-name: VARCHAR(30) to hold department name
 -- role table
-id: INT PRIMARY KEY
+CREATE TABLE role (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(30),
+    salary DECIMAL,
+    department_id INT NOT NULL,
+    FOREIGN KEY (department_id) REFERENCES department(id)
+)
 
-
-title: VARCHAR(30) to hold role title
-
-
-salary: DECIMAL to hold role salary
-
-
-department_id: INT to hold reference to department role belongs to
 
 
 -- employee table
-id: INT PRIMARY KEY
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  first_name VARCHAR(30) NOT NULL,
+  last_name VARCHAR(30) NOT NULL,
+  role_id IN NOT NULL,
+  manager_id INT NULL,
+  FOREIGN KEY (role_id) REFERENCES role(id),
+  FOREIGN KEY (manager_id) REFERENCES employee(id)
 
-
-first_name: VARCHAR(30) to hold employee first name
-
-
-last_name: VARCHAR(30) to hold employee last name
-
-
-role_id: INT to hold reference to employee role
-
-
-manager_id: INT to hold reference to another employee that is the manager of the current employee (null if the employee has no manager)
