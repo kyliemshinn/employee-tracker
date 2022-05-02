@@ -94,7 +94,21 @@ const viewEmployees = () => {
 };
 // add a department- prompted to enter the name of the department and that department is added to the database
 const addDept = () => {
-  
+  inquirer.prompt({
+    type: "input",
+    message: "Enter new department",
+    name: "dept"
+  })
+  .then(function (res) {
+    const query = `INSERT INTO department (name) VALUES ("${res.dept}")`;
+    console.log(`Added ${res.dept} to the database`)
+    db.query(query, function (err, res) {
+      if (err) {
+        throw err;
+      }
+      initPrompt();
+    });
+  });
 };
 // add a role- prompted to enter the name, salary, and department for the role and that role is added to the database
 const addRole = () => {};
