@@ -1,22 +1,22 @@
 -- DEPARTMENT NAMES- ENGINEER, FINANCE, LEGAL, SALES
 INSERT INTO department (name)
+        ("Sales");
 VALUES  ("Engineering"),
         ("Finance"),
         ("Legal"),
-        ("Sales");
        
 
 -- ROLE TITLE- SALESLEAD; dep sales, SALESPERSON; dep sales, LEAD ENGINEER dep engineering, SOFTWARE ENGINEER; dep engineering, ACCOUNT MANAGER dep finance, ACCOUNTANT; dep finance, LEGAL TEAM LEAD; dep legal, LAYWER; dep legal
     --associated salary in order 100k, 80k, 150k, 120k, 160k, 125k, 250k, 190k
 INSERT INTO role (title, salary, department_id)
-VALUES  ("Saleslead", 100000, 4),
-        ("Salesperson", 80000, 4),
-        ("Lead Engineer", 150000, 1),
-        ("Software Engineer", 120000, 1),
-        ("Account Manager", 160000, 2),
-        ("Accountant", 125000, 2),
-        ("Legal Team Lead", 250000, 3),
-        ("Laywer", 190000, 3);
+VALUES  ("Saleslead", 100000, 1),
+        ("Salesperson", 80000, 1),
+        ("Lead Engineer", 150000, 2),
+        ("Software Engineer", 120000, 2),
+        ("Account Manager", 160000, 3),
+        ("Accountant", 125000, 3),
+        ("Legal Team Lead", 250000, 4),
+        ("Laywer", 190000, 4);
 
 -- show first name, last name title, dep, salary manager
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
