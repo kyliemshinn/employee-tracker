@@ -95,9 +95,9 @@ const viewEmployees = () => {
 // add a department- prompted to enter the name of the department and that department is added to the database
 const addDept = () => {
   inquirer.prompt({
-    type: "input",
+    name: "dept",
     message: "Enter new department",
-    name: "dept"
+    type: "input"
   })
   .then(function (res) {
     const query = `INSERT INTO department (name) VALUES ("${res.dept}")`;
@@ -111,7 +111,37 @@ const addDept = () => {
   });
 };
 // add a role- prompted to enter the name, salary, and department for the role and that role is added to the database
-const addRole = () => {};
+const addRole = () => {
+  inquirer.prompt([
+    {
+      name: "role",
+      message: "Enter new role",
+      type: "input"
+    },
+    {
+      name: "roleSalary",
+      message: "Enter the salary of the role",
+      type: "input"
+      },
+      {
+        name: "roleDept",
+        message: "Enter the department of the role",
+        type: "list",
+        choices: ['legal', 'finance', 'engineering', 'sales']
+        },
+
+  ])
+  .then(function (res) {
+    const query = `INSERT INTO department (name) VALUES ("${res.role}, ${res.roleSalary}, ${res.roleDept} ")`;
+    console.log(`Added ${res.role} to the database`)
+    db.query(query, function (err, res) {
+      if (err) {
+        throw err;
+      }
+      initPrompt();
+    });
+  });
+};
 // add an employee- prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
 const addEmployee = () => {};
 // update an employee role-  prompted to select an employee to update and their new role and this information is updated in the database
