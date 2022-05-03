@@ -47,7 +47,9 @@ The user will need to run `npm install` to get all the necessary materials for t
 ## Usage
 
 Run `node server.js` to get the code program to run. Please reference video for more details on usage of this project.
-___ADD VIDEO AND GIF HERE_____
+
+
+![employee tracker gif](./assets/employeetrackergif.gif)
 
 ## Technologies Used
 
