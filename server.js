@@ -94,56 +94,91 @@ const viewEmployees = () => {
 };
 // add a department- prompted to enter the name of the department and that department is added to the database
 const addDept = () => {
-  inquirer.prompt({
-    name: "dept",
-    message: "Enter new department",
-    type: "input"
-  })
-  .then(function (res) {
-    const query = `INSERT INTO department (name) VALUES ("${res.dept}")`;
-    console.log(`Added ${res.dept} to the database`)
-    db.query(query, function (err, res) {
-      if (err) {
-        throw err;
-      }
-      initPrompt();
+  inquirer
+    .prompt({
+      name: "dept",
+      message: "Enter new department",
+      type: "input",
+    })
+    .then(function (res) {
+      const query = `INSERT INTO department (name) VALUES ("${res.dept}")`;
+      console.log(`Added ${res.dept} to the database`);
+      db.query(query, function (err, res) {
+        if (err) {
+          throw err;
+        }
+        initPrompt();
+      });
     });
-  });
 };
 // add a role- prompted to enter the name, salary, and department for the role and that role is added to the database
 const addRole = () => {
-  inquirer.prompt([
-    {
-      name: "role",
-      message: "Enter new role",
-      type: "input"
-    },
-    {
-      name: "roleSalary",
-      message: "Enter the salary of the role",
-      type: "input"
+  inquirer
+    .prompt([
+      {
+        name: "role",
+        message: "Enter new role",
+        type: "input",
+      },
+      {
+        name: "roleSalary",
+        message: "Enter the salary of the role",
+        type: "input",
       },
       {
         name: "roleDept",
         message: "Enter the department of the role",
         type: "list",
-        choices: ['legal', 'finance', 'engineering', 'sales']
-        },
-
-  ])
-  .then(function (res) {
-    const query = `INSERT INTO department (name) VALUES ("${res.role}, ${res.roleSalary}, ${res.roleDept} ")`;
-    console.log(`Added ${res.role} to the database`)
-    db.query(query, function (err, res) {
-      if (err) {
-        throw err;
-      }
-      initPrompt();
+        choices: ["legal", "finance", "engineering", "sales"],
+      },
+    ])
+    .then(function (res) {
+      const query = `INSERT INTO role (name) VALUES ("${res.role}, ${res.roleSalary}, ${res.roleDept} ")`;
+      console.log(`Added ${res.role} to the database`);
+      db.query(query, function (err, res) {
+        if (err) {
+          throw err;
+        }
+        initPrompt();
+      });
     });
-  });
 };
 // add an employee- prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
-const addEmployee = () => {};
+const addEmployee = () => {
+  inquirer
+    .prompt([
+      {
+        name: "firstName",
+        message: "Enter the employees first name",
+        type: "input",
+      },
+      {
+        name: "lastName",
+        message: "Enter the employees last name",
+        type: "input",
+      },
+      {
+        name: "employeeRole",
+        message: "Enter the employees role",
+        type: "input",
+      },
+      {
+        name: "empManager",
+        message: "Enter the employees manager id",
+        type: "input",
+      },
+    ])
+    .then(function (res) {
+      const query = `INSERT INTO role (name) VALUES ("${res.firstName}, ${res.lastname}, ${res.employeeRole}, ${res.empManager} ")`;
+      console.log(`Added ${res.firstName} ${res.lastName} to the database`);
+      db.query(query, function (err, res) {
+        if (err) {
+          throw err;
+        }
+        initPrompt();
+      });
+    });
+};
 // update an employee role-  prompted to select an employee to update and their new role and this information is updated in the database
 const updateEmployee = () => {};
 
