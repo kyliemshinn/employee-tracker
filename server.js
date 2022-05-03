@@ -13,9 +13,9 @@ const db = mysql.createConnection(
   console.log(`Connected to the employees_db database.`)
 );
 // inquirer prompts for employees- will be multiple different
-// what would you like to do ?
-// subset of questions to populate schema tables
-// view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role
+  // what would you like to do ?
+    // subset of questions to populate schema tables
+    // view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role
 function initPrompt() {
   const startQuestions = [
     {
@@ -76,8 +76,10 @@ const viewDepts = () => {
 };
 // view all roles then I am presented with the job title, role id, the department that role belongs to, and the salary for that role
 const viewRoles = () => {
-  var query = "SELECT * FROM role";
+  console.log('viewing all roles')
+  var query = "SELECT role.id, role.title, department.name AS department, role.salary FROM role LEFT JOIN department ON role.department_id = department.id";
   db.query(query, function (err, res) {
+    console.log('view query of all roles')
     if (err) throw err;
     console.table(res);
     initPrompt();
@@ -97,7 +99,7 @@ const addDept = () => {
   inquirer
     .prompt({
       name: "dept",
-      message: "Enter new department",
+      message: "Enter new department.",
       type: "input",
     })
     .then(function (res) {
@@ -117,23 +119,23 @@ const addRole = () => {
     .prompt([
       {
         name: "role",
-        message: "Enter new role",
+        message: "Enter new role.",
         type: "input",
       },
       {
         name: "roleSalary",
-        message: "Enter the salary of the role",
+        message: "Enter the salary of the role.",
         type: "input",
       },
       {
         name: "roleDept",
-        message: "Enter the department of the role",
-        type: "list",
-        choices: ["legal", "finance", "engineering", "sales"],
+        message: "Enter the department id of the role- reference view all departments to see id numbers.",
+        type: "input",
+        
       },
     ])
     .then(function (res) {
-      const query = `INSERT INTO role (name) VALUES ("${res.role}, ${res.roleSalary}, ${res.roleDept} ")`;
+      const query = `INSERT INTO role (title, salary, department_id) VALUES ("${res.role}", "${res.roleSalary}", "${res.roleDept}")`;
       console.log(`Added ${res.role} to the database`);
       db.query(query, function (err, res) {
         if (err) {
@@ -149,27 +151,27 @@ const addEmployee = () => {
     .prompt([
       {
         name: "firstName",
-        message: "Enter the employees first name",
+        message: "Enter the employees first name.",
         type: "input",
       },
       {
         name: "lastName",
-        message: "Enter the employees last name",
+        message: "Enter the employees last name.",
         type: "input",
       },
       {
         name: "employeeRole",
-        message: "Enter the employees role",
+        message: "Enter the employees role id- reference from view all roles.",
         type: "input",
       },
       {
         name: "empManager",
-        message: "Enter the employees manager id",
+        message: "Enter the employees manager id- reference from view all employees.",
         type: "input",
       },
     ])
     .then(function (res) {
-      const query = `INSERT INTO role (first_name, last_name, role_id, manager_id) VALUES ("${res.firstName}, ${res.lastname}, ${res.employeeRole}, ${res.empManager} ")`;
+      const query = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("${res.firstName}", "${res.lastName}", "${res.employeeRole}", "${res.empManager}")`;
       console.log(`Added ${res.firstName} ${res.lastName} to the database`);
       db.query(query, function (err, res) {
         if (err) {
