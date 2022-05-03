@@ -169,7 +169,7 @@ const addEmployee = () => {
       },
     ])
     .then(function (res) {
-      const query = `INSERT INTO role (name) VALUES ("${res.firstName}, ${res.lastname}, ${res.employeeRole}, ${res.empManager} ")`;
+      const query = `INSERT INTO role (first_name, last_name, role_id, manager_id) VALUES ("${res.firstName}, ${res.lastname}, ${res.employeeRole}, ${res.empManager} ")`;
       console.log(`Added ${res.firstName} ${res.lastName} to the database`);
       db.query(query, function (err, res) {
         if (err) {
