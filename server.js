@@ -151,12 +151,12 @@ const addEmployee = () => {
     .prompt([
       {
         name: "firstName",
-        message: "Enter the employees first name.",
+        message: "Enter the employees first name",
         type: "input",
       },
       {
         name: "lastName",
-        message: "Enter the employees last name.",
+        message: "Enter the employees last name",
         type: "input",
       },
       {
@@ -182,6 +182,30 @@ const addEmployee = () => {
     });
 };
 // update an employee role-  prompted to select an employee to update and their new role and this information is updated in the database
-const updateEmployee = () => {};
+const updateEmployee = () => {
+  inquirer
+  .prompt([
+    {
+      type: "input",
+      message: "Enter the employees id you would like to update- reference the view all employees list",
+      name: "empId"
+    },
+    {
+      type: "input",
+      message: "Enter the new role ID for that employee",
+      name: "role"
+    }
+  ])
+  .then(function (res) {
+      const query = `UPDATE employee SET role_id = "${res.role}" WHERE employee.id = "${res.empId}"`;
+      console.log('employee has been updated.')
+      db.query(query, function (err, res) {
+        if (err) {
+          throw err;
+        }
+        initPrompt();
+      })
+    });
+};
 
 initPrompt();
